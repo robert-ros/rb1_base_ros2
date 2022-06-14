@@ -26,8 +26,8 @@ def generate_launch_description():
         PythonLaunchDescriptionSource(
             os.path.join(pkg_gazebo_ros, 'launch', 'gazebo.launch.py'),
         ),
-        #launch_arguments={'world': gazebo_world}.items()
-        launch_arguments={"verbose": "true"}.items()
+        launch_arguments={'world': gazebo_world}.items()
+        #launch_arguments={"verbose": "true"}.items()
     )    
 
 
