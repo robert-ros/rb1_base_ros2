@@ -62,7 +62,7 @@ def generate_launch_description():
     nodes = [
         start_robot_state_publisher,
         start_spawn_robot,
-        start_rb1_base_control
+        #start_rb1_base_control
     ]
 
     return LaunchDescription(nodes)

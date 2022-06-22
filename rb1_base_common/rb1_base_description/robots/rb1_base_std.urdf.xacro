@@ -12,6 +12,9 @@
 	<xacro:include filename="$(find rb1_base_description)/urdf/bases/rb1_base_v3.urdf.xacro" />
 	<!-- v3 name from engineering department -->
 
+	<!-- Import all available sensors -->
+	<xacro:include filename="$(find rb1_base_description)/urdf/hokuyo_ust20lx.urdf.xacro" />
+
 	<!-- Import RB1 wheels -->
 	<xacro:include filename="$(find rb1_base_description)/urdf/wheels/rubber_wheel.urdf.xacro" />
 	<xacro:include filename="$(find rb1_base_description)/urdf/wheels/omni_wheel.urdf.xacro" />
@@ -79,7 +82,19 @@
 		<origin xyz="${omni_front_x} -${omni_front_y} ${omni_front_z}" rpy="0 0 0"/>
 	</xacro:omni_wheel>
 
+	<!-- SENSORS -->
+	<xacro:sensor_hokuyo_ust20lx prefix="$(arg prefix)front_laser" parent="$(arg prefix)base_link" prefix_topic="front_laser" gpu="$(arg gpu)">
+		<origin xyz="0.210 0.0 0.21" rpy="0 3.1416 3.1416"/>
+	</xacro:sensor_hokuyo_ust20lx> 
+<!--
+	<xacro:sensor_vectornav prefix="$(arg prefix)" parent="$(arg prefix)base_link">
+		<origin xyz="0.002 0.053 0.1485" rpy="0 0 0"/>
+	</xacro:sensor_vectornav>
+-->
+
 	<!-- Gazebo ros2 control plugins -->
-	<xacro:ros2_controlxd/>
+	<!-- <xacro:gazebo_ros2_control/> -->
+	<xacro:gazebo_diff_drive/>
+	<!-- <xacro:gazebo_planar_move/> -->
 
 </robot>

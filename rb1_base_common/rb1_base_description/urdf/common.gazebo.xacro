@@ -15,7 +15,84 @@
 		</gazebo>
 	</xacro:macro>
 
-	<xacro:macro name="ros2_controlxd">
+	<xacro:macro name="gazebo_planar_move">
+
+		<gazebo>
+			<plugin name='planar_move_plugin' filename='libgazebo_ros_planar_move.so'>
+			<ros>
+				<remapping>cmd_vel:=robotnik_base_control/cmd_vel</remapping>
+				<remapping>odom:=robotnik_base_control/odom</remapping>
+			</ros>
+
+			<update_rate>100</update_rate>
+			<publish_rate>10</publish_rate>
+
+			<!-- output -->
+			<publish_odom>true</publish_odom>
+			<publish_odom_tf>true</publish_odom_tf>
+
+			<odometry_frame>robot_odom</odometry_frame>
+			<robot_base_frame>robot_base_footprint</robot_base_frame>
+
+			<covariance_x>0.0001</covariance_x>
+			<covariance_y>0.0001</covariance_y>
+			<covariance_yaw>0.01</covariance_yaw>
+			</plugin>
+		</gazebo>
+
+	</xacro:macro>
+
+
+	<xacro:macro name="gazebo_diff_drive">
+
+		<gazebo>
+			<plugin name="diff_drive_plugin" filename="libgazebo_ros_diff_drive.so">
+
+			<update_rate>30</update_rate>
+			
+			<!-- wheels -->
+			<left_joint>robot_left_wheel_joint</left_joint>
+			<right_joint>robot_right_wheel_joint</right_joint>
+
+			<!-- kinematics -->
+			<wheel_separation>0.436</wheel_separation>
+			<wheel_diameter>0.152</wheel_diameter>
+
+			<!-- limits -->
+			<max_wheel_torque>20</max_wheel_torque>
+			<max_wheel_acceleration>1.0</max_wheel_acceleration>
+
+			<!-- Receive velocity commands on this ROS topic -->
+			<command_topic>robotnik_base_control/cmd_vel</command_topic>
+
+			<!-- output -->
+			<!-- When false, publish no wheel odometry data to a ROS topic -->
+			<publish_odom>true</publish_odom>
+
+			<!-- When true, publish coordinate transform from odom to base_footprint -->
+			<!-- I usually use the robot_localization package to publish this transform -->   
+			<publish_odom_tf>true</publish_odom_tf>
+			
+			<!-- When true, publish coordinate transform from base_link to the wheels -->
+			<!-- The robot_state_publisher package is often used to publish this transform -->   
+			<publish_wheel_tf>true</publish_wheel_tf>
+
+			<odometry_topic>robotnik_base_control/odom</odometry_topic>
+			<odometry_frame>robot_odom</odometry_frame>
+			<robot_base_frame>robot_base_footprint</robot_base_frame>
+
+			<odometry_source>1</odometry_source>
+			<ros>
+				<remapping>odom:=robotnik_base_control/odom</remapping>
+				<remapping>cmd_vel:=robotnik_base_control/cmd_vel</remapping>
+			</ros>
+			</plugin>
+		</gazebo>
+
+	</xacro:macro>
+
+
+	<xacro:macro name="gazebo_ros2_control">
 
 		<ros2_control name="GazeboSystem" type="system">
 			<hardware>
