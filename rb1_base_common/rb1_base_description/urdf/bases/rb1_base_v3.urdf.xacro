@@ -94,8 +94,8 @@
   </link>
 
   <joint name="${prefix}top_covert_joint" type="fixed">
-     <origin xyz="0.0 0.0 0.243" rpy="0 0 0 " />
-     <parent link="${prefix}base_footprint"/>
+     <origin xyz="0.0 0.0 0.0248" rpy="0 0 0 " />
+     <parent link="${prefix}base_link"/>
      <child link="${prefix}top_cover_link" />
   </joint>
 
